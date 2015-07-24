@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>winrar</id>
+        <version>5.20.1</version>
+        <title>WinRAR</title>
+        <authors>Rarlab</authors>
+        <owners>maartenba tonigellida</owners>
+        <licenseUrl>http://www.win-rar.com/winrarlicense.html</licenseUrl>
+        <projectUrl>http://www.rarlab.com</projectUrl>
+        <iconUrl>http://fc02.deviantart.net/fs71/i/2012/154/4/6/hd_winrar_icon_by_rhubarb_leaf-d523xqo.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>WinRAR is a powerful archive manager.
+It can backup your data and reduce the size of email attachments, decompress RAR, ZIP and other files downloaded from Internet and create new archives in RAR and ZIP file format.
+You can try WinRAR before buy, its trial version is available.</description>
+        <summary>WinRAR is a powerful archive manager.
+It can backup your data and reduce the size of email attachments, compress &amp; decompress RAR, ZIP and other files downloaded from Internet.</summary>
+        <releaseNotes>Now supports a lot of languages. Some of them aren't supported by having an old version in its traduction.</releaseNotes>
+        <copyright />
+        <tags>checksIfIsInstalled trial-version winrar rar system compression zip</tags>
+    </metadata>
+</package>

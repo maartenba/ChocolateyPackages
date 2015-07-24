@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>windowstelnet</id>
+    <version>1.0.0</version>
+    <title>windowstelnet</title>
+    <authors>Microsoft</authors>
+    <owners>Maarten Balliauw</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>By using Telnet Client, you can create a remote command console session on a host. Please install with chocolatey (http://nuget.org/List/Packages/chocolatey). This will enable Windows Telnet Client on your system.</description>
+    <summary>By using Telnet Client, you can create a remote command console session on a host.</summary>
+    <tags>ccleaner system cleanup registry chocolatey</tags>
+  </metadata>
+</package>

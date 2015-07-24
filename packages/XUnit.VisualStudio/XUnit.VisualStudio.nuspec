@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>XUnit.VisualStudio</id>
+        <version>0.99.8.0</version>
+        <authors>Outercurve Foundation</authors>
+        <owners>maartenba</owners>
+        <licenseUrl>http://xunit.codeplex.com/license</licenseUrl>
+        <projectUrl>http://xunit.codeplex.com/</projectUrl>
+        <iconUrl>http://download-codeplex.sec.s-msft.com/Download?ProjectName=xunit&amp;DownloadId=651577&amp;Build=20865</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>xUnit.net is a free, open source, community-focused unit testing tool for the .NET Framework. Written by the original inventor of NUnit v2, xUnit.net is the latest technology for unit testing C#, F#, VB.NET and other .NET languages.</description>
+        <summary>xUnit.net is a free, open source, community-focused unit testing tool for the .NET Framework.</summary>
+        <tags>xunit testing unit test</tags>
+    </metadata>
+</package>

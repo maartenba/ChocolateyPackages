@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>tortoisesvn</id>
+        <version>1.8.9</version>
+        <title>TortoiseSVN</title>
+        <authors>TortoiseSVN</authors>
+        <owners>Maarten Balliauw</owners>
+        <licenseUrl>https://code.google.com/p/tortoisesvn/source/browse/trunk/src/gpl.txt</licenseUrl>
+        <projectUrl>http://tortoisesvn.net/</projectUrl>
+        <iconUrl>http://downloadol.com/wp-content/uploads/2014/02/TortoiseSVN-icon.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>TortoiseSVN is an easy-to-use SCM / source control software for Microsoft Windows and possibly the best standalone Apache™ Subversion®client there is.</description>
+        <summary>TortoiseSVN is an easy-to-use SCM / source control software for Microsoft Windows and possibly the best standalone Apache™ Subversion®client there is.</summary>
+        <tags>tortoisesvn svn subversion</tags>
+    </metadata>
+</package>
