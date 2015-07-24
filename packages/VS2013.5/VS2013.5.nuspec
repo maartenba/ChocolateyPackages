@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>VS2013.5</id>
-        <version>1.0.0-rc</version>
+        <version>1.0.0</version>
         <title>Visual Studio 2013 Update 5</title>
         <authors>Maarten Balliauw</authors>
         <owners>Maarten Balliauw</owners>
