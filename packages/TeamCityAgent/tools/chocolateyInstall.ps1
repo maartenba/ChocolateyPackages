@@ -50,6 +50,12 @@ copy $agentDir\conf\buildAgent.dist.properties $agentDir\conf\buildAgent.propert
 	   -replace 'ownPort=9090', "ownPort=$ownPort"
     } | Set-Content $agentDir\conf\buildAgent.properties
 
+# Configure service wrapper to allow multiple instances on a single machine
+(Get-Content $agentDir\launcher\conf\wrapper.conf) | Foreach-Object {
+    $_ -replace 'TCBuildAgent', "$agentName" `
+    	   -replace 'TeamCity Build Agent', "TeamCity Build Agent $agentName" `
+    } | Set-Content $agentDir\launcher\conf\wrapper.conf
+
 Start-ChocolateyProcessAsAdmin "/C `"$agentDrive && cd /d $agentDir\bin && $agentDir\bin\service.install.bat && $agentDir\bin\service.start.bat`"" cmd
 
 ## Done!
