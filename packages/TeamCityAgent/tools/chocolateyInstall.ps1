@@ -1,13 +1,12 @@
 if ($env:chocolateyPackageParameters -eq $null) {
-    Write-ChocolateyFailure 'TeamCityAgent' "No parameters have been passed into Chocolatey install, e.g. -params 'serverUrl=http://... agentName=... agentDir=...'"
+	throw "No parameters have been passed into Chocolatey install, e.g. -params 'serverUrl=http://... agentName=... agentDir=...'"
 }
 
 $parameters = ConvertFrom-StringData -StringData $env:chocolateyPackageParameters.Replace(" ", "`n")
 
 ## Validate parameters
 if ($parameters["serverUrl"] -eq $null) {
-    Write-ChocolateyFailure 'TeamCityAgent' "Please specify the TeamCity server URL by passing it as a parameter to Chocolatey install, e.g. -params 'serverUrl=http://...'"
-	return
+    throw "Please specify the TeamCity server URL by passing it as a parameter to Chocolatey install, e.g. -params 'serverUrl=http://...'"
 }
 if ($parameters["agentDir"] -eq $null) {
     $parameters["agentDir"] = "$env:SystemDrive\buildAgent"
@@ -57,7 +56,3 @@ copy $agentDir\conf\buildAgent.dist.properties $agentDir\conf\buildAgent.propert
     } | Set-Content $agentDir\launcher\conf\wrapper.conf
 
 Start-ChocolateyProcessAsAdmin "/C `"$agentDrive && cd /d $agentDir\bin && $agentDir\bin\service.install.bat && $agentDir\bin\service.start.bat`"" cmd
-
-## Done!
-Write-ChocolateySuccess 'TeamCityAgent'
-exit
