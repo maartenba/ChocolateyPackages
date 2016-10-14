@@ -7,6 +7,7 @@
         <authors>JetBrains</authors>
         <owners>maartenba;jetbrains</owners>
         <projectUrl>http://www.jetbrains.com/teamcity</projectUrl>
+        <packageSourceUrl>https://github.com/maartenba/ChocolateyPackages/tree/master/packages/TeamCityAgent</packageSourceUrl>
         <iconUrl>http://sirenofshame.com/Images/CiServers/teamcity.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>TeamCity Build Agent for jetbrains.com/teamcity. It is a piece of software which listens for the commands from the TeamCity server and starts the actual build processes. Install with parameters, e.g. -params 'serverurl=http://...'</description>
@@ -14,7 +15,7 @@
         <copyright>JetBrains s.r.o.</copyright>
         <tags>teamcity build agent ci continuous integration</tags>
         <dependencies>
-            <dependency id="javaruntime" />
+            <dependency id="server-jre" />
         </dependencies>
     </metadata>
 </package>
