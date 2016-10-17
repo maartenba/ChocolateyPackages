@@ -43,11 +43,14 @@ Get-ChocolateyUnzip "$tempFolder\buildAgent.zip" $agentDir
 
 # Configure agent
 copy $agentDir\conf\buildAgent.dist.properties $agentDir\conf\buildAgent.properties
-(Get-Content $agentDir\conf\buildAgent.properties) | Foreach-Object {
-    $_ -replace 'serverUrl=http://localhost:8111/', "serverUrl=$serverUrl" `
-	   -replace 'name=', "name=$agentName" `
-	   -replace 'ownPort=9090', "ownPort=$ownPort"
-    } | Set-Content $agentDir\conf\buildAgent.properties
+$configuration = ConvertFrom-StringData(
+	(Get-Content $agentDir\conf\buildAgent.properties) -join [Environment]::NewLine)
+	
+$configuration.serverUrl = $serverUrl
+$configuration.name = $agentName
+$configuration.ownPort = $ownPort
+
+$configuration.GetEnumerator()  | % { "$($_.Name)=$($_.Value)" } | Set-Content $agentDir\conf\buildAgent.properties
 
 # Configure service wrapper to allow multiple instances on a single machine
 (Get-Content $agentDir\launcher\conf\wrapper.conf) | Foreach-Object {
