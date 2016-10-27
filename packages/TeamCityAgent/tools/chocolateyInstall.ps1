@@ -51,8 +51,8 @@ $buildAgentConfig = get-content $agentDir\conf\buildAgent.properties
 if ($ownPort -eq "9090") {
 # Simply replace config elements sinnce we aren't adding any new entries
 $buildAgentConfig | Foreach-Object {
-    $_ -replace 'serverUrl=(\S+)', "serverUrl=$serverUrl" `
-	   -replace 'name=(\S+)', "name=$agentName"
+    $_ -replace 'serverUrl=(?:\S+)', "serverUrl=$serverUrl" `
+	   -replace 'name=(?:\S+)', "name=$agentName"
     } | Set-Content $agentDir\conf\buildAgent.properties
 } else {
 # Rewrite the entire config since we are adding a new element and this can be tricky to get right
