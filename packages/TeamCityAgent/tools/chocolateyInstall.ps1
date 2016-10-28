@@ -48,6 +48,14 @@ copy $agentDir\conf\buildAgent.dist.properties $agentDir\conf\buildAgent.propert
 #$buildAgentProps = convertfrom-stringdata (Get-Content $agentDir\conf\buildAgent.properties | Out-String)
 $buildAgentProps = [ordered]@{}
 $buildAgentConfig = get-content $agentDir\conf\buildAgent.properties
+if ($ownPort -eq "9090") {
+# Simply replace config elements sinnce we aren't adding any new entries
+$buildAgentConfig | Foreach-Object {
+    $_ -replace 'serverUrl=(?:\S+)', "serverUrl=$serverUrl" `
+	   -replace 'name=(?:\S+)', "name=$agentName"
+    } | Set-Content $agentDir\conf\buildAgent.properties
+} else {
+# Rewrite the entire config since we are adding a new element and this can be tricky to get right
 # The 'if' block lines strip comments to avoid invalid/duplicate key issues
 $buildAgentConfig | %{if (`
                             (!($_.StartsWith('#'))) `
@@ -58,6 +66,7 @@ $buildAgentConfig | %{if (`
                                     $buildAgentProps.add($_.split('=',2)[0],$_.split('=',2)[1])
                                 }
                     }
+}
 Write-Verbose "Build Agent original settings"
 $buildAgentProps.GetEnumerator() | % { "$($_.Name)=$($_.Value)" } | Write-Verbose
 
