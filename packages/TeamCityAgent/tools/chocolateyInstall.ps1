@@ -66,7 +66,7 @@ $buildAgentConfig | %{if (`
                                     $buildAgentProps.add($_.split('=',2)[0],$_.split('=',2)[1])
                                 }
                     }
-}
+
 Write-Verbose "Build Agent original settings"
 $buildAgentProps.GetEnumerator() | % { "$($_.Name)=$($_.Value)" } | Write-Verbose
 
@@ -77,6 +77,7 @@ $buildAgentProps['ownPort'] = $ownPort
 Write-Verbose "Build Agent updated settings"
 $buildAgentProps.GetEnumerator() | % { "$($_.Name)=$($_.Value)" } | Write-Verbose
 $buildAgentProps.GetEnumerator() | % { "$($_.Name)=$($_.Value)" } | Out-File $agentDir\conf\buildAgent.properties
+}
 
 # Configure service wrapper to allow multiple instances on a single machine
 # This rewrites the wrapper config file without comments, if you need the comments, don't supply the agentName when installing to get the default config
