@@ -24,12 +24,8 @@ function Get-PropsDictFromJavaPropsFile ($configFile) {
 }
 $installParametersFile = "$toolsDir/install-parameters.txt"
 $installParameters = Get-PropsDictFromJavaPropsFile $installParametersFile
-$installParameters["agentDir"]
-$installParameters["agentName"]
-"InstallParameters are $installParameters"
 $installParameters.GetEnumerator() | % { "$($_.Name)=$($_.Value)" } | Write-Verbose
 $agentDir = $installParameters["agentDir"]
 $agentName = $installParameters["agentName"]
-$agentDir
 $agentDrive = split-path $agentDir -qualifier
 Start-ChocolateyProcessAsAdmin "/C `"$agentDrive && cd /d $agentDir\bin && $agentDir\bin\service.stop.bat && $agentDir\bin\service.uninstall.bat`"" cmd

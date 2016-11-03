@@ -40,9 +40,6 @@ $agentDrive = split-path $agentDir -qualifier
 $parameters.GetEnumerator() | % { "$($_.Name)=$($_.Value)" } | Write-Verbose
 $parameters.GetEnumerator() | % { "$($_.Name)=$($_.Value)" } | Out-File "$toolsDir/install-parameters.txt" -Encoding ascii
 
-## Temporary folder
-#$tempFolder = $env:TEMP
-
 $packageArgs = @{
   packageName   = "$packageName"
   unzipLocation = "$agentDir"
@@ -65,7 +62,7 @@ function Get-PropsDictFromJavaPropsFile ($configFile) {
                                 -and (($_.Contains('=')))){
                                     $props = @()
                                     $props = $_.split('=',2)
-                                    # Don't write anything to standard out or it messes up the return
+                                    # Use Write-Host or Write-Verbose, Write-Output appends to the return value and breaks things
                                     Write-Verbose "Props are $props"
                                     $configProps.add($props[0],$props[1])
                             }
