@@ -17,8 +17,8 @@ if ($parameters["agentDir"] -eq $null) {
 }
 if ($parameters["agentName"] -eq $null) {
     $defaultName = $true
-    $parameters["agentName"] = "$env:COMPUTERNAME"
-    Write-Host No agent name is specified. Defaulting to $parameters["agentName"]
+    $parameters["agentName"] = ""
+    Write-Host No agent name is specified. Defaulting to empty name.
 }
 if ($parameters["ownPort"] -eq $null) {
     $parameters["ownPort"] = "9090"
