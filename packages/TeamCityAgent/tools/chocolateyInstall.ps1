@@ -17,8 +17,8 @@ if ($parameters["agentDir"] -eq $null) {
 }
 if ($parameters["agentName"] -eq $null) {
     $defaultName = $true
-    $parameters["agentName"] = ""
-    Write-Host No agent name is specified. Defaulting to empty name.
+    $parameters["agentName"] = "$env:COMPUTERNAME"
+    Write-Host No agent name is specified. Defaulting to $parameters["agentName"]
 }
 if ($parameters["ownPort"] -eq $null) {
     $parameters["ownPort"] = "9090"
@@ -100,7 +100,7 @@ if ($ownPort -eq "9090") {
 
 # Supplying a custom agentName allows multiple instances on a single machine
 # This rewrites the wrapper config file without comments, if you need the comments, don't supply an agentName when installing to get the default config
-if (-Not ($defaultName -eq $true)) {
+if (($defaultName -ne $true) -and ($agentName -ne "")) {
     $wrapperPropsFile = "$agentDir\launcher\conf\wrapper.conf"
     $wrapperProps = Get-PropsDictFromJavaPropsFile $wrapperPropsFile
 
