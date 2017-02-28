@@ -1,2 +1,0 @@
-﻿if ($env:chocolateyPackageParameters -match '/lang=') {$param=$env:chocolateyPackageParameters} Else {$param="/LANG=EN"+" "+$env:chocolateyPackageParameters}
-Install-ChocolateyPackage 'treesizefree' 'exe' "$param /verysilent" 'http://www.jam-software.de/treesize_free/TreeSizeFreeSetup.exe'
