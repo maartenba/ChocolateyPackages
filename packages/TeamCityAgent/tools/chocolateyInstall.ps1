@@ -118,6 +118,6 @@ if (-Not ($defaultName -eq $true)) {
 # Future state, catch failure and call chocolateyUninstall.ps1 or some other cleanup
 # trap exit 1 { Start-ChocolateyProcessAsAdmin "/C `"$agentdir\bin\service.stop.bat; $agentDir\bin\service.uninstall.bat; rm -r -fo $agentDir `"" cmd }
 #Start-ChocolateyProcessAsAdmin "/C `"$agentDrive && cd /d $agentDir\bin && $agentDir\bin\service.install.bat && $agentDir\bin\service.start.bat`"" cmd
-Set-Location $agentDir
-Start-ChocolateyProcessAsAdmin "Start-Process -FilePath $agentDir\bin\service.install.bat -WorkingDirectory $($agentDir)"
-Start-ChocolateyProcessAsAdmin "Start-Process -FilePath $agentDir\bin\service.start.bat -WorkingDirectory $($agentDir)"
+Set-Location $agentDir\bin
+Start-ChocolateyProcessAsAdmin "Start-Process -FilePath .\service.install.bat -WorkingDirectory $($agentDir)"
+Start-ChocolateyProcessAsAdmin "Start-Process -FilePath .\service.start.bat -WorkingDirectory $($agentDir)"
