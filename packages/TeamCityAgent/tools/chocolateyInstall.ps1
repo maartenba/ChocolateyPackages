@@ -75,11 +75,11 @@ $buildAgentDistFile = "$agentDir\conf\buildAgent.dist.properties"
 $buildAgentPropFile = "$agentDir\conf\buildAgent.properties"
 
 if ($ownPort -eq "9090") {
-# Simply replace config elements since we aren't adding any new entries
-(Get-Content $buildAgentDistFile) | Foreach-Object {
-    $_ -replace 'serverUrl=(?:\S+)', "serverUrl=$serverUrl" `
-       -replace 'name=(?:\S+)', "name=$agentName"
-    } | Set-Content $buildAgentPropFile
+	# Simply replace config elements since we aren't adding any new entries
+	(Get-Content $buildAgentDistFile) | Foreach-Object {
+		$_ -replace 'serverUrl=(?:\S+)', "serverUrl=$serverUrl" `
+		   -replace 'name=(?:\S+)', "name=$agentName"
+		} | Set-Content $buildAgentPropFile
 } else {
     # Since we are adding a new element and this can be tricky to get right
     # this rewrites the entire config without comments and updated values
@@ -115,9 +115,8 @@ if (-Not ($defaultName -eq $true)) {
     $wrapperProps.GetEnumerator() | % { "$($_.Name)=$($_.Value)" } | Out-File $wrapperPropsFile -Encoding 'ascii'
 }
 
-# Future state, catch failure and call chocolateyUninstall.ps1 or some other cleanup
-# trap exit 1 { Start-ChocolateyProcessAsAdmin "/C `"$agentdir\bin\service.stop.bat; $agentDir\bin\service.uninstall.bat; rm -r -fo $agentDir `"" cmd }
-#Start-ChocolateyProcessAsAdmin "/C `"$agentDrive && cd /d $agentDir\bin && $agentDir\bin\service.install.bat && $agentDir\bin\service.start.bat`"" cmd
+# TODO: catch failure and call chocolateyUninstall.ps1 or some other cleanup
 Set-Location $agentDir\bin
-Start-ChocolateyProcessAsAdmin "Start-Process -FilePath .\service.install.bat -WorkingDirectory $($agentDir)"
-Start-ChocolateyProcessAsAdmin "Start-Process -FilePath .\service.start.bat -WorkingDirectory $($agentDir)"
+Start-ChocolateyProcessAsAdmin "Start-Process -FilePath .\service.install.bat -Wait"
+Sleep 2
+Start-ChocolateyProcessAsAdmin "Start-Process -FilePath .\service.start.bat -Wait"
