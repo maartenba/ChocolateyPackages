@@ -28,6 +28,8 @@ $installParameters.GetEnumerator() | % { "$($_.Name)=$($_.Value)" } | Write-Verb
 $agentDir = $installParameters["agentDir"]
 $agentName = $installParameters["agentName"]
 $agentDrive = split-path $agentDir -qualifier
-#Start-ChocolateyProcessAsAdmin "/C `"$agentDrive && cd /d $agentDir\bin && $agentDir\bin\service.stop.bat && $agentDir\bin\service.uninstall.bat`"" cmd
-Start-ChocolateyProcessAsAdmin "Start-Process -FilePath .\service.stop.bat -WorkingDirectory $($agentDir)"
-Start-ChocolateyProcessAsAdmin "Start-Process -FilePath .\service.uninstall.bat -WorkingDirectory $($agentDir)"
+
+Set-Location $agentDir\bin
+Start-ChocolateyProcessAsAdmin "Start-Process -FilePath .\service.stop.bat -Wait"
+Sleep 2
+Start-ChocolateyProcessAsAdmin "Start-Process -FilePath .\service.uninstall.bat -Wait"
