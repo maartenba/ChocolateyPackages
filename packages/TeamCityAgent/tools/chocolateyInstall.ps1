@@ -2,7 +2,7 @@
 $ErrorActionPreference = 'Stop'; # stop on all errors
 
 if ($env:chocolateyPackageParameters -eq $null) {
-	throw "No parameters have been passed into Chocolatey install, e.g. -params 'serverUrl=http://... agentName=... agentDir=...'"
+	throw "No parameters have been passed into Chocolatey install, e.g. -params 'serverUrl=http://... agentName=... agentDir=... serviceAccount=... serviceAccountPassword=...'"
 }
 
 $parameters = ConvertFrom-StringData -StringData $env:chocolateyPackageParameters.Replace(" ", "`n")
@@ -33,6 +33,8 @@ $serverUrl = $parameters["serverUrl"];
 $agentDir = $parameters["agentDir"];
 $agentName = $parameters["agentName"];
 $ownPort = $parameters["ownPort"];
+$serviceAccount = $parameters["serviceAccount"];
+$serviceAccountPassword = $parameters["serviceAccountPassword"];
 $agentDrive = split-path $agentDir -qualifier
 
 # Write out the install parameters to a file for reference during upgrade/uninstall
@@ -109,6 +111,12 @@ if (-Not ($defaultName -eq $true)) {
     $wrapperProps['wrapper.ntservice.name'] = "$agentName"
     $wrapperProps['wrapper.ntservice.displayname'] = "$agentName TeamCity Build Agent"
     $wrapperProps['wrapper.ntservice.description'] = "$agentName TeamCity Build Agent Service"
+    if($serviceAccount -ne $null){
+        $wrapperProps['wrapper.ntservice.account'] = "$serviceAccount"
+    }
+    if($serviceAccountPassword -ne $null){
+        $wrapperProps['wrapper.ntservice.password'] = "$serviceAccountPassword"
+    }
 
     Write-Verbose "Java Service Wrapper updated settings"
     $wrapperProps.GetEnumerator() | % { "$($_.Name)=$($_.Value)" } | Write-Verbose
