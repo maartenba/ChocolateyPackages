@@ -10,12 +10,14 @@
         <packageSourceUrl>https://github.com/maartenba/ChocolateyPackages/tree/master/packages/TeamCityAgent</packageSourceUrl>
         <iconUrl>https://d3nmt5vlzunoa1.cloudfront.net/teamcity/files/2015/12/icon_TeamCity.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <licenseUrl>https://www.jetbrains.com/teamcity/buy/</licenseUrl>
+        <docsUrl>https://confluence.jetbrains.com/display/TCD10/TeamCity+Documentation</docsUrl>
         <description>TeamCity Build Agent for jetbrains.com/teamcity. It is a piece of software which listens for the commands from the TeamCity server and starts the actual build processes. Install requires at least serverUrl parameter, e.g. -params 'serverurl=http://...', also supported are agentName, agentDir, ownPort and possibly others. If looking to see what changes in the agent config files during the run use -v argument to choco.exe.</description>
         <summary>TeamCity Build Agent for jetbrains.com/teamcity. It is a piece of software which listens for the commands from the TeamCity server and starts the actual build processes. Requires parameters!</summary>
         <copyright>JetBrains s.r.o.</copyright>
-        <tags>teamcity build agent ci continuous integration</tags>
+        <tags>teamcity build agent ci continuous integration admin</tags>
         <dependencies>
-            <dependency id="server-jre" />
+            <dependency id="server-jre" version="8.0.74"/>
         </dependencies>
     </metadata>
 </package>
