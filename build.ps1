@@ -16,6 +16,13 @@ foreach ($nuspec in $nuspecs) {
         choco pack $nuspec.FullName
     }
 }
+
 copy *.nupkg artifacts
+
+Get-ChildItem .\artifacts -Filter *.nupkg | 
+Foreach-Object {
+	$packageName = $_.Name
+	Write-Host "##myget[publishPackage path='artifacts\$packageName' type='nuget']"
+}
 
 Write-Host "Finished building Chocolatey packages."
