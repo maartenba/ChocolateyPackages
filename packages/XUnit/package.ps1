@@ -9,7 +9,7 @@ $nuspec = [xml](Get-Content XUnit.nuspec)
 $version = $nuspec.package.metadata.version
 
 Remove-Item -Force -Recurse -ErrorAction Silentlycontinue tmp
-$nugetExe install `
+& $nugetExe install `
     xunit.runner.console `
     -Version $version `
     -OutputDirectory tmp
@@ -30,6 +30,7 @@ Copy-Item XUnit.nuspec tmp/pkg
 Push-Location tmp/pkg
 try {
     choco pack XUnit.nuspec
+	copy *.nupkg ../../../
 } finally {
     Pop-Location
 }
