@@ -13,7 +13,7 @@ foreach ($nuspec in $nuspecs) {
         .\package.ps1
         Pop-Location
     } else {
-        choco pack $nuspec.FullName --output-directory "$PWD\artifacts"
+        choco pack $nuspec.FullName
     }
 }
 

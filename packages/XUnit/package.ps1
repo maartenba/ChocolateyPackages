@@ -29,7 +29,7 @@ Move-Item tmp/xunit.runner.console.$version/tools/net452/* tmp/pkg/tools
 Copy-Item XUnit.nuspec tmp/pkg
 Push-Location tmp/pkg
 try {
-    choco pack --output-directory (Resolve-Path ..\..\..\..\artifacts)
+    choco pack
 } finally {
     Pop-Location
 }
