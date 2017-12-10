@@ -30,7 +30,7 @@ Copy-Item XUnit.nuspec tmp/pkg
 Push-Location tmp/pkg
 try {
     choco pack XUnit.nuspec
-	move *.nupkg ../../../
+	move *.nupkg "$env:SourcesPath\"
 } finally {
     Pop-Location
 }
