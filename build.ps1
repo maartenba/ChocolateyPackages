@@ -16,5 +16,6 @@ foreach ($nuspec in $nuspecs) {
         choco pack $nuspec.FullName
     }
 }
+copy *.nupkg artifacts
 
 Write-Host "Finished building Chocolatey packages."
