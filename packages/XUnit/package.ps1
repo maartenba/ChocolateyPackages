@@ -30,7 +30,7 @@ Copy-Item XUnit.nuspec tmp/pkg
 Push-Location tmp/pkg
 try {
     choco pack XUnit.nuspec
-	copy *.nupkg ../../../
+	move *.nupkg ../../../
 } finally {
     Pop-Location
 }
