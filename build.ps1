@@ -1,5 +1,7 @@
 Write-Host "Building Chocolatey packages..."
 
+$nugetExe = (Resolve-Path nuget.exe).Path
+
 Remove-Item -Path artifacts -Force -Recurse -ErrorAction SilentlyContinue
 mkdir artifacts | Out-Null
 

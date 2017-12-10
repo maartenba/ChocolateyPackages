@@ -9,7 +9,7 @@ $nuspec = [xml](Get-Content XUnit.nuspec)
 $version = $nuspec.package.metadata.version
 
 Remove-Item -Force -Recurse -ErrorAction Silentlycontinue tmp
-nuget install `
+$nugetExe install `
     xunit.runner.console `
     -Version $version `
     -OutputDirectory tmp
