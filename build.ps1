@@ -17,7 +17,7 @@ foreach ($nuspec in $nuspecs) {
     }
 }
 
-copy *.nupkg artifacts
+move *.nupkg artifacts
 
 Get-ChildItem .\artifacts -Filter *.nupkg | 
 Foreach-Object {
