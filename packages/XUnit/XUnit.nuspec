@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>XUnit</id>
-        <version>2.0.0</version>
+        <version>2.3.1</version>
         <authors>James Newkirk,Brad Wilson</authors>
         <owners>maartenba</owners>
         <licenseUrl>https://raw.githubusercontent.com/xunit/xunit/master/license.txt</licenseUrl>

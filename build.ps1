@@ -1,15 +1,18 @@
 Write-Host "Building Chocolatey packages..."
 
-$nuspecs = Get-ChildItem -Path $PSScriptRoot -Filter *.nuspec -Recurse
+Remove-Item -Path artifacts -Force -Recurse -ErrorAction SilentlyContinue
+mkdir artifacts | Out-Null
+
+$nuspecs = Get-ChildItem -Path packages -Filter *.nuspec -Exclude tmp -Recurse
 
 foreach ($nuspec in $nuspecs) {
-    choco pack $nuspec.FullName
+    if (Test-Path "$($nuspec.Directory)\package.ps1") {
+        Push-Location $nuspec.Directory
+        .\package.ps1
+        Pop-Location
+    } else {
+        choco pack $nuspec.FullName --output-directory "$PWD\artifacts"
+    }
 }
-
-$artifactsFolder = "./artifacts"
-
-Remove-Item -Path $artifactsFolder -Force -Recurse -ErrorAction SilentlyContinue
-New-Item $artifactsFolder -Force -Type Directory | Out-Null
-Move-Item *.nupkg $artifactsFolder
 
 Write-Host "Finished building Chocolatey packages."
