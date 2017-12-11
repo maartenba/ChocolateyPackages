@@ -26,6 +26,7 @@ if (Compare-Object $expectedFrameworks $actualFrameworks) {
 }
 mkdir tmp/pkg/tools | Out-Null
 Move-Item tmp/xunit.runner.console.$version/tools/net452/* tmp/pkg/tools
+Copy-Item *.txt tmp/pkg/tools
 Copy-Item XUnit.nuspec tmp/pkg
 Push-Location tmp/pkg
 try {
