@@ -1,8 +1,0 @@
-VERIFICATION
-Verification is intended to assist the Chocolatey moderators and community
-in verifying that this package's contents are trustworthy.
-
-The binaries are extracted from the official xunit.runner.console nuget
-package (https://www.nuget.org/packages/xunit.runner.console).
-
-See how in the package.ps1 file inside this package source repository.
