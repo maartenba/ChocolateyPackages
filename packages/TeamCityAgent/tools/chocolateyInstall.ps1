@@ -25,6 +25,11 @@ if ($parameters["ownPort"] -eq $null) {
     Write-Host No agent port is specified. Defaulting to $parameters["ownPort"]
 }
 
+if ($parameters["serviceAccount"] -eq $null) {
+    $defaultServiceAccount = $true
+    Write-Host No service account provided, will run as system account.
+}
+
 $packageName = "TeamCityAgent"
 $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 
@@ -100,17 +105,20 @@ if ($ownPort -eq "9090") {
     $buildAgentProps.GetEnumerator() | % { "$($_.Name)=$($_.Value)" } | Out-File $buildAgentPropFile -Encoding 'ascii'
 }
 
-# Supplying a custom agentName allows multiple instances on a single machine
-# This rewrites the wrapper config file without comments, if you need the comments, don't supply an agentName when installing to get the default config
-if (-Not ($defaultName -eq $true)) {
+# This rewrites the wrapper config file without comments, if you need the comments,
+# don't supply an agentName or serviceAccount when installing to get the default config
+if (-Not ($defaultName -eq $true -And $defaultServiceAccount -eq $true)) {
     $wrapperPropsFile = "$agentDir\launcher\conf\wrapper.conf"
     $wrapperProps = Get-PropsDictFromJavaPropsFile $wrapperPropsFile
 
     Write-Verbose "Java Service Wrapper original settings"
     $wrapperProps.GetEnumerator() | % { "$($_.Name)=$($_.Value)" } | Write-Verbose
-    $wrapperProps['wrapper.ntservice.name'] = "$agentName"
-    $wrapperProps['wrapper.ntservice.displayname'] = "$agentName TeamCity Build Agent"
-    $wrapperProps['wrapper.ntservice.description'] = "$agentName TeamCity Build Agent Service"
+    # Supplying a custom agentName allows multiple instances on a single machine
+    if (-Not ($defaultName -eq $true -Or $agentName -eq "")) {
+        $wrapperProps['wrapper.ntservice.name'] = "$agentName"
+        $wrapperProps['wrapper.ntservice.displayname'] = "$agentName TeamCity Build Agent"
+        $wrapperProps['wrapper.ntservice.description'] = "$agentName TeamCity Build Agent Service"
+    }
     if($serviceAccount -ne $null){
         $wrapperProps['wrapper.ntservice.account'] = "$serviceAccount"
     }
