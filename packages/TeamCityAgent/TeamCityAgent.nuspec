@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>TeamCityAgent</id>
-        <version>3.0.0-beta-1</version>
+        <version>3.0.0-beta-2</version>
         <title>TeamCity Build Agent</title>
         <authors>JetBrains</authors>
         <owners>maartenba;jetbrains</owners>
@@ -17,7 +17,7 @@
         <copyright>JetBrains s.r.o.</copyright>
         <tags>teamcity build agent ci continuous integration admin</tags>
         <dependencies>
-            <dependency id="openjdk" version="11.0.2"/>
+            <dependency id="adoptopenjdk" version="8.192"/>
         </dependencies>
     </metadata>
 </package>
