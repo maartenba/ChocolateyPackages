@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>TeamCityAgent</id>
-        <version>3.0.1</version>
+        <version>4.0.0</version>
         <title>TeamCity Build Agent</title>
         <authors>JetBrains</authors>
         <owners>maartenba;jetbrains</owners>
@@ -15,7 +15,7 @@
         <description>TeamCity Build Agent for jetbrains.com/teamcity. It is a piece of software which listens for the commands from the TeamCity server and starts the actual build processes. Install requires at least serverUrl parameter, e.g. -params 'serverurl=http://...', also supported are agentName, agentDir, ownPort and possibly others. If looking to see what changes in the agent config files during the run use -v argument to choco.exe.</description>
         <summary>TeamCity Build Agent for jetbrains.com/teamcity. It is a piece of software which listens for the commands from the TeamCity server and starts the actual build processes. Requires parameters!</summary>
         <copyright>JetBrains s.r.o.</copyright>
-        <releaseNotes>Version 3.x of this package uses AdoptOpenJDK.</releaseNotes>
+        <releaseNotes>Version 3.x of this package uses AdoptOpenJDK. Version 4.x depends on Chocolatey 0.10.14.</releaseNotes>
         <tags>teamcity build agent ci continuous integration admin</tags>
         <dependencies>
             <dependency id="adoptopenjdk" version="8.192.0"/>

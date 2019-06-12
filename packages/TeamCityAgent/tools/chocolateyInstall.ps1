@@ -132,7 +132,7 @@ if (-Not ($defaultName -eq $true -And $defaultServiceAccount -eq $true)) {
 }
 
 # TODO: catch failure and call chocolateyUninstall.ps1 or some other cleanup
-Set-Location $agentDir\bin
-Start-ChocolateyProcessAsAdmin "Start-Process -FilePath .\service.install.bat -Wait"
+$workingDirectory = Join-Path $agentDir "bin"
+Start-ChocolateyProcessAsAdmin "Set-Location $workingDirectory; Start-Process -FilePath .\service.install.bat -Wait"
 Sleep 2
-Start-ChocolateyProcessAsAdmin "Start-Process -FilePath .\service.start.bat -Wait"
+Start-ChocolateyProcessAsAdmin "Set-Location $workingDirectory; Start-Process -FilePath .\service.start.bat -Wait"

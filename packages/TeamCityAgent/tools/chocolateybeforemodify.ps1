@@ -29,7 +29,7 @@ $agentDir = $installParameters["agentDir"]
 $agentName = $installParameters["agentName"]
 $agentDrive = split-path $agentDir -qualifier
 
-Set-Location $agentDir\bin
-Start-ChocolateyProcessAsAdmin "Start-Process -FilePath .\service.stop.bat -Wait"
+$workingDirectory = Join-Path $agentDir "bin"
+Start-ChocolateyProcessAsAdmin "Set-Location $workingDirectory; Start-Process -FilePath .\service.stop.bat -Wait"
 Sleep 2
-Start-ChocolateyProcessAsAdmin "Start-Process -FilePath .\service.uninstall.bat -Wait"
+Start-ChocolateyProcessAsAdmin "Set-Location $workingDirectory; Start-Process -FilePath .\service.uninstall.bat -Wait"
