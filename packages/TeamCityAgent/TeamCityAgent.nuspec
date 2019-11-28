@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>TeamCityAgent</id>
-        <version>4.0.0</version>
+        <version>4.0.1</version>
         <title>TeamCity Build Agent</title>
         <authors>JetBrains</authors>
         <owners>maartenba;jetbrains</owners>
@@ -18,7 +18,7 @@
         <releaseNotes>Version 3.x of this package uses AdoptOpenJDK. Version 4.x depends on Chocolatey 0.10.14.</releaseNotes>
         <tags>teamcity build agent ci continuous integration admin</tags>
         <dependencies>
-            <dependency id="adoptopenjdk" version="8.192.0"/>
+            <dependency id="adoptopenjdk" version="8.192"/>
         </dependencies>
     </metadata>
 </package>
