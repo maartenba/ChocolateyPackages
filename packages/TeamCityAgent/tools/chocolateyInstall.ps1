@@ -30,6 +30,12 @@ if ($parameters["serviceAccount"] -eq $null) {
     Write-Host No service account provided, will run as system account.
 }
 
+$agentZipArchiveName = "buildAgent.zip"
+if ($parameters["downloadFullAgent"] -eq $true) {
+    $agentZipArchiveName = "buildAgentFull.zip"
+    Write-Host Will download full agent ZIP archive with plugins.
+}
+
 $packageName = "TeamCityAgent"
 $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 
@@ -50,7 +56,7 @@ $parameters.GetEnumerator() | % { "$($_.Name)=$($_.Value)" } | Out-File "$toolsD
 $packageArgs = @{
   packageName   = "$packageName"
   unzipLocation = "$agentDir"
-  url           = "$serverUrl/update/buildAgent.zip"
+  url           = "$serverUrl/update/$agentZipArchiveName"
 }
 Install-ChocolateyZipPackage @packageArgs
 
