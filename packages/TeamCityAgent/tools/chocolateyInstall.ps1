@@ -124,9 +124,9 @@ if ($ownPort -eq "9090") {
 	# Simply replace config elements since we aren't adding any new entries
 	(Get-Content $buildAgentDistFile) | Foreach-Object {
 		$_ -replace 'serverUrl=(?:\S+)', "serverUrl=$serverUrl" `
-		   -replace 'name=(?:\S+|$)', "name=$agentName"
-		   -replace 'workDir=(?:\S+|$)', "name=$agentWorkDir"
-		   -replace 'tempDir=(?:\S+|$)', "name=$agentTempDir"
+		   -replace 'name=(?:\S+|$)', "name=$agentName" `
+		   -replace 'workDir=(?:\S+|$)', "name=$agentWorkDir" `
+		   -replace 'tempDir=(?:\S+|$)', "name=$agentTempDir" `
 		   -replace 'systemDir=(?:\S+|$)', "name=$agentSystemDir"
 		} | Set-Content $buildAgentPropFile
 } else {
