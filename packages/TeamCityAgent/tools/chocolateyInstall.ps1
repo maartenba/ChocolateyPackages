@@ -11,15 +11,33 @@ $parameters = ConvertFrom-StringData -StringData $env:chocolateyPackageParameter
 if ($parameters["serverUrl"] -eq $null) {
     throw "Please specify the TeamCity server URL by passing it as a parameter to Chocolatey install, e.g. -params 'serverUrl=http://...'"
 }
+
 if ($parameters["agentDir"] -eq $null) {
     $parameters["agentDir"] = "$env:SystemDrive\buildAgent"
     Write-Host No agent directory is specified. Defaulting to $parameters["agentDir"]
 }
+
+if ($parameters["agentWorkDir"] -eq $null) {
+    $parameters["agentWorkDir"] = "$env:SystemDrive\buildAgent\work"
+    Write-Host No agent directory is specified. Defaulting to $parameters["agentWorkDir"]
+}
+
+if ($parameters["agentTempDir"] -eq $null) {
+    $parameters["agentTempDir"] = "$env:SystemDrive\buildAgent\temp"
+    Write-Host No agent directory is specified. Defaulting to $parameters["agentTempDir"]
+}
+
+if ($parameters["agentSystemDir"] -eq $null) {
+    $parameters["agentSystemDir"] = "$env:SystemDrive\buildAgent\system"
+    Write-Host No agent directory is specified. Defaulting to $parameters["agentSystemDir"]
+}
+
 if ($parameters["agentName"] -eq $null) {
     $defaultName = $true
     $parameters["agentName"] = "$env:COMPUTERNAME"
     Write-Host No agent name is specified. Defaulting to $parameters["agentName"]
 }
+
 if ($parameters["ownPort"] -eq $null) {
     $parameters["ownPort"] = "9090"
     Write-Host No agent port is specified. Defaulting to $parameters["ownPort"]
@@ -42,6 +60,9 @@ $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 ## Make local variables of it
 $serverUrl = $parameters["serverUrl"];
 $agentDir = $parameters["agentDir"];
+$agentWorkDir = $parameters["agentWorkDir"];
+$agentTempDir = $parameters["agentTempDir"];
+$agentSystemDir = $parameters["agentSystemDir"];
 $agentName = $parameters["agentName"];
 $ownPort = $parameters["ownPort"];
 $serviceAccount = $parameters["serviceAccount"];
@@ -92,6 +113,9 @@ if ($ownPort -eq "9090") {
 	(Get-Content $buildAgentDistFile) | Foreach-Object {
 		$_ -replace 'serverUrl=(?:\S+)', "serverUrl=$serverUrl" `
 		   -replace 'name=(?:\S+|$)', "name=$agentName"
+		   -replace 'workDir=(?:\S+|$)', "name=$agentWorkDir"
+		   -replace 'tempDir=(?:\S+|$)', "name=$agentTempDir"
+		   -replace 'systemDir=(?:\S+|$)', "name=$agentSystemDir"
 		} | Set-Content $buildAgentPropFile
 } else {
     # Since we are adding a new element and this can be tricky to get right
@@ -104,6 +128,9 @@ if ($ownPort -eq "9090") {
     # Set values that require customization
     $buildAgentProps['serverUrl'] = $serverUrl
     $buildAgentProps['name'] = $agentName
+    $buildAgentProps['workDir'] = $agentWorkDir
+    $buildAgentProps['tempDir'] = $agentTempDir
+    $buildAgentProps['systemDir'] = $agentSystemDir
     $buildAgentProps['ownPort'] = $ownPort
 
     Write-Verbose "Build Agent updated settings"
