@@ -69,6 +69,15 @@ $serviceAccount = $parameters["serviceAccount"];
 $serviceAccountPassword = $parameters["serviceAccountPassword"];
 $agentDrive = split-path $agentDir -qualifier
 
+if($serviceAccount -ne $null)
+{
+    if($serviceAccount -notlike "*\*")
+    {
+        Write-Verbose "Service account has no '\' assuming local user"
+        $serviceAccount = ".\$serviceAccount"
+    }
+}
+
 # Write out the install parameters to a file for reference during upgrade/uninstall
 # This doesn't currently preserve anything during an upgrade, it just helps locate the service control batch files
 $parameters.GetEnumerator() | % { "$($_.Name)=$($_.Value)" } | Write-Verbose
