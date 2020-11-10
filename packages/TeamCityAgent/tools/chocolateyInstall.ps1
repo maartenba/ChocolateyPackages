@@ -18,17 +18,20 @@ if ($parameters["agentDir"] -eq $null) {
 }
 
 if ($parameters["agentWorkDir"] -eq $null) {
-    $parameters["agentWorkDir"] = "$env:SystemDrive\buildAgent\work"
+    $agentDir = $parameters["agentDir"];
+    $parameters["agentWorkDir"] = "$agentDir\work"
     Write-Host No agent directory is specified. Defaulting to $parameters["agentWorkDir"]
 }
 
 if ($parameters["agentTempDir"] -eq $null) {
-    $parameters["agentTempDir"] = "$env:SystemDrive\buildAgent\temp"
+    $agentDir = $parameters["agentDir"];
+    $parameters["agentTempDir"] = "$agentDir\temp"
     Write-Host No agent directory is specified. Defaulting to $parameters["agentTempDir"]
 }
 
 if ($parameters["agentSystemDir"] -eq $null) {
-    $parameters["agentSystemDir"] = "$env:SystemDrive\buildAgent\system"
+    $agentDir = $parameters["agentDir"];
+    $parameters["agentSystemDir"] = "$agentDir\system"
     Write-Host No agent directory is specified. Defaulting to $parameters["agentSystemDir"]
 }
 
