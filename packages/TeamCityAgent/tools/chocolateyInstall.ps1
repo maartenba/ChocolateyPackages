@@ -125,9 +125,9 @@ if ($ownPort -eq "9090") {
 	(Get-Content $buildAgentDistFile) | Foreach-Object {
 		$_ -replace 'serverUrl=(?:\S+)', "serverUrl=$serverUrl" `
 		   -replace 'name=(?:\S+|$)', "name=$agentName" `
-		   -replace 'workDir=(?:\S+|$)', "name=$agentWorkDir" `
-		   -replace 'tempDir=(?:\S+|$)', "name=$agentTempDir" `
-		   -replace 'systemDir=(?:\S+|$)', "name=$agentSystemDir"
+		   -replace 'workDir=(?:\S+|$)', "workDir=$agentWorkDir" `
+		   -replace 'tempDir=(?:\S+|$)', "tempDir=$agentTempDir" `
+		   -replace 'systemDir=(?:\S+|$)', "systemDir=$agentSystemDir"
 		} | Set-Content $buildAgentPropFile
 } else {
     # Since we are adding a new element and this can be tricky to get right
