@@ -20,19 +20,19 @@ if ($parameters["agentDir"] -eq $null) {
 if ($parameters["agentWorkDir"] -eq $null) {
     $agentDir = $parameters["agentDir"];
     $parameters["agentWorkDir"] = "$agentDir\work"
-    Write-Host No agent directory is specified. Defaulting to $parameters["agentWorkDir"]
+    Write-Host No agent work directory is specified. Defaulting to $parameters["agentWorkDir"]
 }
 
 if ($parameters["agentTempDir"] -eq $null) {
     $agentDir = $parameters["agentDir"];
     $parameters["agentTempDir"] = "$agentDir\temp"
-    Write-Host No agent directory is specified. Defaulting to $parameters["agentTempDir"]
+    Write-Host No agent temp directory is specified. Defaulting to $parameters["agentTempDir"]
 }
 
 if ($parameters["agentSystemDir"] -eq $null) {
     $agentDir = $parameters["agentDir"];
     $parameters["agentSystemDir"] = "$agentDir\system"
-    Write-Host No agent directory is specified. Defaulting to $parameters["agentSystemDir"]
+    Write-Host No agent system directory is specified. Defaulting to $parameters["agentSystemDir"]
 }
 
 if ($parameters["agentName"] -eq $null) {
