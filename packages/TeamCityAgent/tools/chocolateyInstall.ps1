@@ -71,6 +71,8 @@ $ownPort = $parameters["ownPort"];
 $serviceAccount = $parameters["serviceAccount"];
 $serviceAccountPassword = $parameters["serviceAccountPassword"];
 $agentDrive = split-path $agentDir -qualifier
+$buildAgentDistFile = "$agentDir\conf\buildAgent.dist.properties"
+$buildAgentPropFile = "$agentDir\conf\buildAgent.properties"
 
 if($serviceAccount -ne $null)
 {
@@ -85,6 +87,13 @@ if($serviceAccount -ne $null)
 # This doesn't currently preserve anything during an upgrade, it just helps locate the service control batch files
 $parameters.GetEnumerator() | % { "$($_.Name)=$($_.Value)" } | Write-Verbose
 $parameters.GetEnumerator() | % { "$($_.Name)=$($_.Value)" } | Out-File "$toolsDir/install-parameters.txt" -Encoding ascii
+
+$currentConfig = $null
+if((Test-Path -Path $buildAgentPropFile) -eq $true)
+{
+    Write-Verbose "Loading previous install settings"
+    $currentConfig = Get-Content -Path $buildAgentPropFile
+}
 
 $packageArgs = @{
   packageName   = "$packageName"
@@ -117,38 +126,31 @@ function Get-PropsDictFromJavaPropsFile ($configFile) {
 }
 
 # Configure agent
-$buildAgentDistFile = "$agentDir\conf\buildAgent.dist.properties"
-$buildAgentPropFile = "$agentDir\conf\buildAgent.properties"
-
-if ($ownPort -eq "9090") {
-	# Simply replace config elements since we aren't adding any new entries
-	(Get-Content $buildAgentDistFile) | Foreach-Object {
-		$_ -replace 'serverUrl=(?:\S+)', "serverUrl=$serverUrl" `
-		   -replace 'name=(?:\S+|$)', "name=$agentName" `
-		   -replace 'workDir=(?:\S+|$)', "workDir=$agentWorkDir" `
-		   -replace 'tempDir=(?:\S+|$)', "tempDir=$agentTempDir" `
-		   -replace 'systemDir=(?:\S+|$)', "systemDir=$agentSystemDir"
-		} | Set-Content $buildAgentPropFile
-} else {
-    # Since we are adding a new element and this can be tricky to get right
-    # this rewrites the entire config without comments and updated values
-    $buildAgentProps = Get-PropsDictFromJavaPropsFile $buildAgentDistFile
-
-    Write-Verbose "Build Agent original settings"
-    $buildAgentProps.GetEnumerator() | % { "$($_.Name)=$($_.Value)" } | Write-Verbose
-
-    # Set values that require customization
-    $buildAgentProps['serverUrl'] = $serverUrl
-    $buildAgentProps['name'] = $agentName
-    $buildAgentProps['workDir'] = $agentWorkDir
-    $buildAgentProps['tempDir'] = $agentTempDir
-    $buildAgentProps['systemDir'] = $agentSystemDir
-    $buildAgentProps['ownPort'] = $ownPort
-
-    Write-Verbose "Build Agent updated settings"
-    $buildAgentProps.GetEnumerator() | % { "$($_.Name)=$($_.Value)" } | Write-Verbose
-    $buildAgentProps.GetEnumerator() | % { "$($_.Name)=$($_.Value)" } | Out-File $buildAgentPropFile -Encoding 'ascii'
+if($currentConfig -ne $null)
+{
+    Write-Verbose "Keeping previous install settings"
+    Set-Content -Path $buildAgentPropFile -Value $currentConfig
+    $buildAgentProps = Get-PropsDictFromJavaPropsFile $buildAgentPropFile
 }
+else
+{
+    $buildAgentProps = Get-PropsDictFromJavaPropsFile $buildAgentDistFile
+}
+
+Write-Verbose "Build Agent original settings"
+$buildAgentProps.GetEnumerator() | % { "$($_.Name)=$($_.Value)" } | Write-Verbose
+
+# Set values that require customization
+$buildAgentProps['serverUrl'] = $serverUrl
+$buildAgentProps['name'] = $agentName
+$buildAgentProps['workDir'] = $agentWorkDir
+$buildAgentProps['tempDir'] = $agentTempDir
+$buildAgentProps['systemDir'] = $agentSystemDir
+$buildAgentProps['ownPort'] = $ownPort
+
+Write-Verbose "Build Agent updated settings"
+$buildAgentProps.GetEnumerator() | % { "$($_.Name)=$($_.Value)" } | Write-Verbose
+$buildAgentProps.GetEnumerator() | % { "$($_.Name)=$($_.Value)" } | Out-File $buildAgentPropFile -Encoding 'ascii'
 
 # This rewrites the wrapper config file without comments, if you need the comments,
 # don't supply an agentName or serviceAccount when installing to get the default config
