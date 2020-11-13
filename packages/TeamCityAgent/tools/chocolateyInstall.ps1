@@ -71,6 +71,8 @@ $ownPort = $parameters["ownPort"];
 $serviceAccount = $parameters["serviceAccount"];
 $serviceAccountPassword = $parameters["serviceAccountPassword"];
 $agentDrive = split-path $agentDir -qualifier
+$buildAgentDistFile = "$agentDir\conf\buildAgent.dist.properties"
+$buildAgentPropFile = "$agentDir\conf\buildAgent.properties"
 
 if($serviceAccount -ne $null)
 {
@@ -85,6 +87,13 @@ if($serviceAccount -ne $null)
 # This doesn't currently preserve anything during an upgrade, it just helps locate the service control batch files
 $parameters.GetEnumerator() | % { "$($_.Name)=$($_.Value)" } | Write-Verbose
 $parameters.GetEnumerator() | % { "$($_.Name)=$($_.Value)" } | Out-File "$toolsDir/install-parameters.txt" -Encoding ascii
+
+$currentConfig = $null
+if(Test-Path $buildAgentPropFile)
+{
+    Write-Host "Loading previous install settings"
+    $currentConfig = Get-Content -Path $buildAgentPropFile
+}
 
 $packageArgs = @{
   packageName   = "$packageName"
@@ -117,8 +126,12 @@ function Get-PropsDictFromJavaPropsFile ($configFile) {
 }
 
 # Configure agent
-$buildAgentDistFile = "$agentDir\conf\buildAgent.dist.properties"
-$buildAgentPropFile = "$agentDir\conf\buildAgent.properties"
+if($currentConfig -ne $null)
+{
+    Write-Host "Keeping previous install settings"
+    Set-Content -Path $buildAgentPropFile -Value $currentConfig
+    $buildAgentDistFile = $buildAgentPropFile
+}
 
 if ($ownPort -eq "9090") {
 	# Simply replace config elements since we aren't adding any new entries
