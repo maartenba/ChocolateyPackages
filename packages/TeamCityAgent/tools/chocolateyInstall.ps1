@@ -63,9 +63,9 @@ $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 ## Make local variables of it
 $serverUrl = $parameters["serverUrl"];
 $agentDir = $parameters["agentDir"];
-$agentWorkDir = $parameters["agentWorkDir"];
-$agentTempDir = $parameters["agentTempDir"];
-$agentSystemDir = $parameters["agentSystemDir"];
+$agentWorkDir = $parameters["agentWorkDir"].Replace("\","\\");
+$agentTempDir = $parameters["agentTempDir"].Replace("\","\\");
+$agentSystemDir = $parameters["agentSystemDir"].Replace("\","\\");
 $agentName = $parameters["agentName"];
 $ownPort = $parameters["ownPort"];
 $serviceAccount = $parameters["serviceAccount"];
