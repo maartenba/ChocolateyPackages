@@ -18,7 +18,7 @@
         <releaseNotes>Version 3.x of this package uses AdoptOpenJDK. Version 4.x depends on Chocolatey 0.10.14.</releaseNotes>
         <tags>teamcity build agent ci continuous integration admin</tags>
         <dependencies>
-            <dependency id="corretto8jdk" version="8.252.09.1"/>
+            <dependency id="corretto11jdk" version="11.0.19"/>
         </dependencies>
     </metadata>
 </package>
