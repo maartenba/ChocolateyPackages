@@ -2,16 +2,16 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>TeamCityAgent</id>
-        <version>6.0.0</version>
+        <version>6.0.1</version>
         <title>TeamCity Build Agent</title>
         <authors>JetBrains</authors>
         <owners>maartenba;jetbrains</owners>
-        <projectUrl>http://www.jetbrains.com/teamcity</projectUrl>
+        <projectUrl>https://www.jetbrains.com/teamcity</projectUrl>
         <packageSourceUrl>https://github.com/maartenba/ChocolateyPackages/tree/master/packages/TeamCityAgent</packageSourceUrl>
-        <iconUrl>https://d3nmt5vlzunoa1.cloudfront.net/teamcity/files/2015/12/icon_TeamCity.png</iconUrl>
+        <iconUrl>https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/TeamCity_Icon.svg/512px-TeamCity_Icon.svg.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <licenseUrl>https://www.jetbrains.com/teamcity/buy/</licenseUrl>
-        <docsUrl>https://confluence.jetbrains.com/display/TCD18/TeamCity+Documentation</docsUrl>
+        <docsUrl>https://www.jetbrains.com/teamcity/learn/</docsUrl>
         <description>TeamCity Build Agent for jetbrains.com/teamcity. It is a piece of software which listens for the commands from the TeamCity server and starts the actual build processes. Install requires at least serverUrl parameter, e.g. -params 'serverurl=http://...', also supported are agentName, agentDir, ownPort and possibly others. If looking to see what changes in the agent config files during the run use -v argument to choco.exe.</description>
         <summary>TeamCity Build Agent for jetbrains.com/teamcity. It is a piece of software which listens for the commands from the TeamCity server and starts the actual build processes. Requires parameters!</summary>
         <copyright>JetBrains s.r.o.</copyright>
