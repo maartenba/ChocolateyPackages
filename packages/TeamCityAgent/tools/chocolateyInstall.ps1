@@ -184,3 +184,15 @@ $workingDirectory = Join-Path $agentDir "bin"
 Start-ChocolateyProcessAsAdmin "Set-Location $workingDirectory; Start-Process -FilePath .\service.install.bat -Wait"
 Sleep 2
 Start-ChocolateyProcessAsAdmin "Set-Location $workingDirectory; Start-Process -FilePath .\service.start.bat -Wait"
+Sleep 2
+
+$checkServiceName = "TCBuildAgent"
+if (-Not ($defaultName -eq $true -Or $agentName -eq "")) {
+    $checkServiceName = $agentName
+}
+
+if((Get-Service | Where-Object {$_.Status -eq "Running" -and $_.Name -eq $checkServiceName } | Measure-Object).Count -eq 0) {
+    Set-PowerShellExitCode 1
+} else {
+    Set-PowerShellExitCode 0
+}
