@@ -168,6 +168,7 @@ if (-Not ($defaultName -eq $true -And $defaultServiceAccount -eq $true)) {
     }
     if($serviceAccount -ne $null){
         $wrapperProps['wrapper.ntservice.account'] = "$serviceAccount"
+	$wrapperProps['wrapper.ntservice.interactive'] = "false"
     }
     if($serviceAccountPassword -ne $null){
         $wrapperProps['wrapper.ntservice.password'] = "$serviceAccountPassword"
